@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import RouteHeading from "@/components/RouteHeading";
-import Prompt from "@/components/Prompt";
+import type { Metadata } from 'next';
+import RouteHeading from '@/components/RouteHeading';
+import Prompt from '@/components/Prompt';
 
 export const metadata: Metadata = {
-  title: "man om",
-  description: "A man page for Om Morendha — AI engineer.",
+  title: 'man om',
+  description: 'A man page for Om Morendha — AI engineer.',
 };
 
 export default function AboutPage() {
@@ -26,8 +26,8 @@ export default function AboutPage() {
               <div className="man-section">
                 <div className="man-h">NAME</div>
                 <div className="man-p">
-                  <strong>om</strong> — AI engineer; builds agent infra and the
-                  data layer underneath it.
+                  <strong>om</strong> — AI engineer; builds agent infra and the data layer
+                  underneath it.
                 </div>
               </div>
 
@@ -44,38 +44,32 @@ export default function AboutPage() {
               <div className="man-section">
                 <div className="man-h">DESCRIPTION</div>
                 <div className="man-p">
-                  AI Innovation Specialist at Trilogy (ESW Capital), working
-                  remotely from India. Builds the infrastructure that makes LLM
-                  agents useful in production — MCP servers, RBAC, dimensional
-                  data models, agent orchestration, and the boring-but-critical
-                  reliability work around all of it.
+                  AI Innovation Specialist at Trilogy (ESW Capital), working remotely from India.
+                  Builds the infrastructure that makes LLM agents useful in production — MCP
+                  servers, RBAC, dimensional data models, agent orchestration, and the
+                  boring-but-critical reliability work around all of it.
                 </div>
                 <div className="man-p">
-                  Shipped a company-wide MCP server (OAuth2 + role-based access)
-                  that connects AI agents to NetSuite, Redshift, and internal
-                  APIs for 50+ employees. Re-engineered 500+ unstructured tables
-                  into Kimball star/snowflake schemas so LLMs can query without
-                  hallucinating. Built{" "}
-                  <span className="tok-accent">Budget Bot</span>, an agent that
-                  automated quarterly financial planning across 30+ portfolio
-                  companies of a $3B+ AUM PE firm — cut manual line-item
-                  generation by 80%.
+                  Shipped a company-wide MCP server (OAuth2 + role-based access) that connects AI
+                  agents to NetSuite, Redshift, and internal APIs for 50+ employees. Re-engineered
+                  500+ unstructured tables into Kimball star/snowflake schemas so LLMs can query
+                  without hallucinating. Built <span className="tok-accent">Budget Bot</span>, an
+                  agent that automated quarterly financial planning across 30+ portfolio companies
+                  of a $3B+ AUM PE firm — cut manual line-item generation by 80%.
                 </div>
                 <div className="man-p">
-                  Before Trilogy: led an algorithmic trading platform at Cognyx
-                  AI — Django/Postgres/Redis/WebSockets, copy-trading across
-                  100+ concurrent users, backtesting on 5+ years of market
-                  data, 12 containerized microservices on AWS with 99.5%
-                  uptime.
+                  Before Trilogy: led an algorithmic trading platform at Cognyx AI —
+                  Django/Postgres/Redis/WebSockets, copy-trading across 100+ concurrent users,
+                  backtesting on 5+ years of market data, 12 containerized microservices on AWS with
+                  99.5% uptime.
                 </div>
               </div>
 
               <div className="man-section">
                 <div className="man-h">EDUCATION</div>
                 <div className="man-p">
-                  B.Tech, Computer Science —{" "}
-                  <span className="tok-accent">IIIT Dharwad</span> (2020–2024) ·
-                  CGPA 8.25
+                  B.Tech, Computer Science — <span className="tok-accent">IIIT Dharwad</span>{' '}
+                  (2020–2024) · CGPA 8.25
                 </div>
               </div>
 
@@ -83,18 +77,17 @@ export default function AboutPage() {
                 <div className="man-h">CURRENTLY</div>
                 <ul className="man-list">
                   <li>
-                    <span className="tok-meta">[*]</span> Scaling MCP across
-                    more internal data sources at Trilogy
+                    <span className="tok-meta">[*]</span> Scaling MCP across more internal data
+                    sources at Trilogy
                   </li>
                   <li>
-                    <span className="tok-meta">[*]</span> Exploring
-                    agent-assisted dev workflows (
-                    <span className="tok-accent">Claude Code</span>, Codex) for
-                    single-engineer leverage
+                    <span className="tok-meta">[*]</span> Exploring agent-assisted dev workflows (
+                    <span className="tok-accent">Claude Code</span>, Codex) for single-engineer
+                    leverage
                   </li>
                   <li>
-                    <span className="tok-meta">[*]</span> Writing notes on what
-                    actually makes LLM agents reliable
+                    <span className="tok-meta">[*]</span> Writing notes on what actually makes LLM
+                    agents reliable
                   </li>
                 </ul>
               </div>
@@ -110,7 +103,7 @@ export default function AboutPage() {
                   >
                     github(7)
                   </a>
-                  ,{" "}
+                  ,{' '}
                   <a
                     href="https://twitter.com/omkmorendha"
                     target="_blank"
@@ -119,11 +112,8 @@ export default function AboutPage() {
                   >
                     twitter(7)
                   </a>
-                  ,{" "}
-                  <a
-                    href="mailto:omkmorendha@gmail.com"
-                    className="link-inline"
-                  >
+                  ,{' '}
+                  <a href="mailto:omkmorendha@gmail.com" className="link-inline">
                     email(1)
                   </a>
                 </div>

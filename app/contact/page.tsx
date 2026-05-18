@@ -1,41 +1,41 @@
-import type { Metadata } from "next";
-import RouteHeading from "@/components/RouteHeading";
-import Prompt from "@/components/Prompt";
-import ContactCopy from "@/components/ContactCopy";
+import type { Metadata } from 'next';
+import RouteHeading from '@/components/RouteHeading';
+import Prompt from '@/components/Prompt';
+import ContactCopy from '@/components/ContactCopy';
 
 export const metadata: Metadata = {
-  title: "curl /contact",
-  description: "Reach Om Morendha — pipes that go directly to the inbox.",
+  title: 'curl /contact',
+  description: 'Reach Om Morendha — pipes that go directly to the inbox.',
 };
 
 const LINKS = [
   {
-    key: "github",
-    handle: "@omkmorendha",
-    href: "https://github.com/omkmorendha",
-    verb: "GET",
+    key: 'github',
+    handle: '@omkmorendha',
+    href: 'https://github.com/omkmorendha',
+    verb: 'GET',
   },
   {
-    key: "twitter",
-    handle: "@omkmorendha",
-    href: "https://twitter.com/omkmorendha",
-    verb: "GET",
+    key: 'twitter',
+    handle: '@omkmorendha',
+    href: 'https://twitter.com/omkmorendha',
+    verb: 'GET',
   },
   {
-    key: "linkedin",
-    handle: "in/omkmorendha",
-    href: "https://linkedin.com/in/omkmorendha",
-    verb: "GET",
+    key: 'linkedin',
+    handle: 'in/omkmorendha',
+    href: 'https://linkedin.com/in/omkmorendha',
+    verb: 'GET',
   },
   {
-    key: "email",
-    handle: "omkmorendha@gmail.com",
-    href: "mailto:omkmorendha@gmail.com",
-    verb: "POST",
+    key: 'email',
+    handle: 'omkmorendha@gmail.com',
+    href: 'mailto:omkmorendha@gmail.com',
+    verb: 'POST',
   },
 ];
 
-const EMAIL = "omkmorendha@gmail.com";
+const EMAIL = 'omkmorendha@gmail.com';
 
 export default function ContactPage() {
   return (
@@ -54,12 +54,10 @@ export default function ContactPage() {
           <div className="cmd-output">
             <div className="curl-output">
               <div className="curl-pre">
-                <span className="tok-comment">
-                  // HTTP/2 200 — application/json
-                </span>
+                <span className="tok-comment">// HTTP/2 200 — application/json</span>
               </div>
               <pre className="json-block">
-{`{
+                {`{
   "name": `}
                 <span className="tok-string">&quot;Om Morendha&quot;</span>
                 {`,
@@ -73,18 +71,13 @@ export default function ContactPage() {
     { "`}
                     <span className="tok-key">{l.key}</span>
                     {`": `}
-                    <a
-                      href={l.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="json-link"
-                    >
+                    <a href={l.href} target="_blank" rel="noreferrer" className="json-link">
                       <span className="tok-string">&quot;{l.handle}&quot;</span>
                     </a>
                     {`, "verb": `}
                     <span className="tok-accent">&quot;{l.verb}&quot;</span>
                     {` }`}
-                    {i < LINKS.length - 1 ? "," : ""}
+                    {i < LINKS.length - 1 ? ',' : ''}
                   </span>
                 ))}
                 {`

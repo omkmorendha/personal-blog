@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import RouteHeading from "@/components/RouteHeading";
-import Prompt from "@/components/Prompt";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import RouteHeading from '@/components/RouteHeading';
+import Prompt from '@/components/Prompt';
 
 export const metadata: Metadata = {
-  title: "git log --oneline",
-  description: "Things Om Morendha has built — AI agent infra, data, and tooling.",
+  title: 'git log --oneline',
+  description: 'Things Om Morendha has built — AI agent infra, data, and tooling.',
 };
 
-type Status = "active" | "maintenance" | "archived";
+type Status = 'active' | 'maintenance' | 'archived';
 
 interface Project {
   name: string;
@@ -22,51 +22,51 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
-    name: "trilogy-mcp",
+    name: 'trilogy-mcp',
     description:
-      "Company-wide MCP server (OAuth2 + RBAC) connecting AI agents to NetSuite, Redshift, and internal APIs for 50+ employees.",
-    tags: ["mcp", "oauth2", "rbac", "fastapi"],
-    href: "https://github.com/omkmorendha",
-    lang: "python",
-    status: "active",
-    commit: "f2a91e0",
+      'Company-wide MCP server (OAuth2 + RBAC) connecting AI agents to NetSuite, Redshift, and internal APIs for 50+ employees.',
+    tags: ['mcp', 'oauth2', 'rbac', 'fastapi'],
+    href: 'https://github.com/omkmorendha',
+    lang: 'python',
+    status: 'active',
+    commit: 'f2a91e0',
   },
   {
-    name: "budget-bot",
+    name: 'budget-bot',
     description:
-      "Agent that automates quarterly financial planning across 30+ portfolio companies of a $3B+ AUM PE firm. Cut manual line-item generation by 80%.",
-    tags: ["llm-agents", "finance", "langchain"],
-    href: "https://github.com/omkmorendha",
-    lang: "python",
-    status: "active",
-    commit: "ab30c47",
+      'Agent that automates quarterly financial planning across 30+ portfolio companies of a $3B+ AUM PE firm. Cut manual line-item generation by 80%.',
+    tags: ['llm-agents', 'finance', 'langchain'],
+    href: 'https://github.com/omkmorendha',
+    lang: 'python',
+    status: 'active',
+    commit: 'ab30c47',
   },
   {
-    name: "warehouse-kimball",
+    name: 'warehouse-kimball',
     description:
-      "Re-engineered 500+ unstructured tables into Kimball star/snowflake schemas so LLMs can query the warehouse without hallucinating.",
-    tags: ["data-engineering", "redshift", "dbt"],
-    href: "https://github.com/omkmorendha",
-    lang: "python",
-    status: "active",
-    commit: "c8e1102",
+      'Re-engineered 500+ unstructured tables into Kimball star/snowflake schemas so LLMs can query the warehouse without hallucinating.',
+    tags: ['data-engineering', 'redshift', 'dbt'],
+    href: 'https://github.com/omkmorendha',
+    lang: 'python',
+    status: 'active',
+    commit: 'c8e1102',
   },
   {
-    name: "cognyx-trading",
+    name: 'cognyx-trading',
     description:
-      "Algorithmic copy-trading platform — Django + Postgres + Redis + WebSockets. 100+ concurrent users, 5+ years of backtesting data, 12 microservices on AWS at 99.5% uptime.",
-    tags: ["django", "postgres", "redis", "aws"],
-    href: "https://github.com/omkmorendha",
-    lang: "python",
-    status: "archived",
-    commit: "1f72d8a",
+      'Algorithmic copy-trading platform — Django + Postgres + Redis + WebSockets. 100+ concurrent users, 5+ years of backtesting data, 12 microservices on AWS at 99.5% uptime.',
+    tags: ['django', 'postgres', 'redis', 'aws'],
+    href: 'https://github.com/omkmorendha',
+    lang: 'python',
+    status: 'archived',
+    commit: '1f72d8a',
   },
 ];
 
 function langClass(lang: string) {
   const key = lang.toLowerCase();
-  const known = ["python", "go", "rust", "typescript", "javascript"];
-  return known.includes(key) ? `lang-${key}` : "lang-default";
+  const known = ['python', 'go', 'rust', 'typescript', 'javascript'];
+  return known.includes(key) ? `lang-${key}` : 'lang-default';
 }
 
 export default function ProjectsPage() {
@@ -101,18 +101,15 @@ export default function ProjectsPage() {
                     <div className="git-head-row">
                       <span className="git-hash">{p.commit}</span>
                       <span className="git-ref">
-                        (<span className="tok-accent">HEAD →</span>{" "}
+                        (<span className="tok-accent">HEAD →</span>{' '}
                         <span className="tok-string">{p.name}</span>)
                       </span>
-                      <span className={`git-status status-${p.status}`}>
-                        ● {p.status}
-                      </span>
+                      <span className={`git-status status-${p.status}`}>● {p.status}</span>
                     </div>
                     <div className="git-desc">{p.description}</div>
                     <div className="git-foot-row">
                       <span className="git-lang">
-                        <span className={`lang-dot ${langClass(p.lang)}`} />{" "}
-                        {p.lang}
+                        <span className={`lang-dot ${langClass(p.lang)}`} /> {p.lang}
                       </span>
                       {p.tags.map((t) => (
                         <span key={t} className="git-tag">
@@ -135,7 +132,7 @@ export default function ProjectsPage() {
           </div>
           <div className="cmd-output">
             <div className="cmd-note">
-              <span className="tok-meta">→ </span> visit{" "}
+              <span className="tok-meta">→ </span> visit{' '}
               <a
                 href="https://github.com/omkmorendha"
                 target="_blank"
@@ -143,7 +140,7 @@ export default function ProjectsPage() {
                 className="link-inline"
               >
                 github.com/omkmorendha
-              </a>{" "}
+              </a>{' '}
               <span className="tok-meta">for the full list</span>
             </div>
           </div>

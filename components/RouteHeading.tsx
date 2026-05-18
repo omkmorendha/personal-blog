@@ -1,4 +1,4 @@
-import Prompt from "./Prompt";
+import Prompt from './Prompt';
 
 interface RouteHeadingProps {
   cwd?: string;
@@ -6,11 +6,7 @@ interface RouteHeadingProps {
   tagline: string;
 }
 
-export default function RouteHeading({
-  cwd = "~",
-  command,
-  tagline,
-}: RouteHeadingProps) {
+export default function RouteHeading({ cwd = '~', command, tagline }: RouteHeadingProps) {
   return (
     <>
       <div className="route-heading">
