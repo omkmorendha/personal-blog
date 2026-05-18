@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# personal-blog
 
-## Getting Started
+Source for [omkmorendha.com](https://omkmorendha.com) — a Next.js 16 site deployed to Cloudflare Workers via [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare).
 
-First, run the development server:
+## Stack
+
+- Next.js 16 (App Router) + React 19
+- TypeScript, Tailwind CSS v4
+- MDX for blog posts
+- Cloudflare Workers (via `@opennextjs/cloudflare`)
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build & deploy
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build        # next build
+npm run preview      # local Workers preview via wrangler
+npm run deploy       # build + deploy to Cloudflare
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Production deploys run automatically on push to `main` via [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-## Learn More
+## Quality
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run format       # prettier write
+npm run format:check # CI check
+npx tsc --noEmit     # typecheck
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+CI runs typecheck, build, and format checks in parallel on every PR ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
