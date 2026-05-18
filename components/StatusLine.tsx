@@ -43,10 +43,10 @@ export default function StatusLine() {
       <span className="status-seg">main</span>
       <span className="status-seg dim">{labelFor(pathname)}</span>
       <span className="status-spacer" />
-      <span className="status-seg dim">utf-8</span>
-      <span className="status-seg dim">unix</span>
+      <span className="status-seg dim hide-mobile">utf-8</span>
+      <span className="status-seg dim hide-mobile">unix</span>
       <span className="status-seg">{time || "--:--"}</span>
-      <span className="status-right">1,1 All</span>
+      <span className="status-right hide-mobile">1,1 All</span>
     </div>
   );
 }
