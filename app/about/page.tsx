@@ -26,8 +26,8 @@ export default function AboutPage() {
               <div className="man-section">
                 <div className="man-h">NAME</div>
                 <div className="man-p">
-                  <strong>om</strong>, AI engineer; builds agent infra and the data layer
-                  underneath it.
+                  <strong>om</strong>, AI engineer; builds agent infra and the data layer underneath
+                  it.
                 </div>
               </div>
 
@@ -44,16 +44,16 @@ export default function AboutPage() {
               <div className="man-section">
                 <div className="man-h">DESCRIPTION</div>
                 <div className="man-p">
-                  Available for new roles: founding / staff / senior / forward-deployed.
-                  Previously AI Innovation Specialist at{' '}
+                  Available for new roles: founding / staff / senior / forward-deployed. Previously
+                  AI Innovation Specialist at{' '}
                   <span className="tok-accent">Trilogy (ESW Capital)</span>.
                 </div>
                 <div className="man-p">
-                  Builds the infrastructure that makes LLM agents useful in production: MCP
-                  servers, RBAC, dimensional data models, and agent orchestration. At Trilogy,
-                  shipped a company-wide MCP server that let employees point agents at internal
-                  data; re-engineered a bloated warehouse into Kimball-style dimensional models so
-                  LLMs can query it while minimizing hallucination; and built{' '}
+                  Builds the infrastructure that makes LLM agents useful in production: MCP servers,
+                  RBAC, dimensional data models, and agent orchestration. At Trilogy, shipped a
+                  company-wide MCP server that let employees point agents at internal data;
+                  re-engineered a bloated warehouse into Kimball-style dimensional models so LLMs
+                  can query it while minimizing hallucination; and built{' '}
                   <span className="tok-accent">Budget Bot</span>, an agent that automated quarterly
                   financial planning for a $3B+ AUM PE firm.
                 </div>
