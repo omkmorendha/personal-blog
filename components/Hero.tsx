@@ -27,7 +27,7 @@ function WhoamiOutput() {
           <span className="tok-meta">user.</span>
           <span className="tok-key">focus</span>
           {'    = ['}
-          <span className="tok-string">&quot;agent-infra&quot;</span>
+          <span className="tok-string">&quot;agentic engineering&quot;</span>
           {', '}
           <span className="tok-string">&quot;mcp&quot;</span>
           {', '}
@@ -40,15 +40,15 @@ function WhoamiOutput() {
           <span className="tok-meta">user.</span>
           <span className="tok-key">stack</span>
           {'    = ['}
-          <span className="tok-string">&quot;python&quot;</span>
+          <span className="tok-string">&quot;backend&quot;</span>
           {', '}
-          <span className="tok-string">&quot;aws&quot;</span>
+          <span className="tok-string">&quot;frontend&quot;</span>
           {', '}
-          <span className="tok-string">&quot;postgres&quot;</span>
+          <span className="tok-string">&quot;database-modelling&quot;</span>
           {', '}
-          <span className="tok-string">&quot;langchain&quot;</span>
+          <span className="tok-string">&quot;devops&quot;</span>
           {', '}
-          <span className="tok-string">&quot;anthropic&quot;</span>
+          <span className="tok-string">&quot;ai/ml&quot;</span>
           {']'}
         </span>
         <span>
