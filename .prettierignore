@@ -1,0 +1,14 @@
+node_modules
+.next
+.open-next
+.wrangler
+out
+dist
+build
+coverage
+public
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+cloudflare-env.d.ts
+next-env.d.ts
