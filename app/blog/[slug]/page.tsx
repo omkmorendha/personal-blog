@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getAllPosts, getPost } from '@/lib/posts';
+import { getAllPosts, getPostMeta, loadPostComponent } from '@/lib/posts';
 import Prompt from '@/components/Prompt';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
+
+export const dynamic = 'force-static';
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return getAllPosts().map((p) => ({ slug: p.slug }));
@@ -15,7 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPostMeta(slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -25,8 +27,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPost(slug);
+  const post = getPostMeta(slug);
   if (!post) notFound();
+
+  const PostBody = await loadPostComponent(slug);
+  if (!PostBody) notFound();
 
   return (
     <div className="route">
@@ -86,7 +91,7 @@ export default async function PostPage({ params }: Props) {
             )}
 
             <article className="mdx-content">
-              <MDXRemote source={post.content} />
+              <PostBody />
             </article>
 
             <div style={{ marginTop: 32 }} className="cmd-note">

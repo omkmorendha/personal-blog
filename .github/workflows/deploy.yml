@@ -4,10 +4,17 @@ on:
   push:
     branches: [main]
 
+permissions:
+  contents: read
+  deployments: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment:
+      name: production
+      url: https://omkmorendha.com
 
     steps:
       - uses: actions/checkout@v4
@@ -17,6 +24,15 @@ jobs:
           node-version: 22
           cache: npm
 
+      - name: Start GitHub deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: production
+          ref: ${{ github.sha }}
+
       - name: Install dependencies
         run: npm ci
 
@@ -25,3 +41,14 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Finish GitHub deployment
+        if: always()
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          env: ${{ steps.deployment.outputs.env }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: https://omkmorendha.com
