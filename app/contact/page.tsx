@@ -17,14 +17,14 @@ const LINKS = [
   },
   {
     key: 'twitter',
-    handle: '@omkmorendha',
-    href: 'https://twitter.com/omkmorendha',
+    handle: '@whyomwhy',
+    href: 'https://x.com/whyomwhy',
     verb: 'GET',
   },
   {
     key: 'linkedin',
-    handle: 'in/omkmorendha',
-    href: 'https://linkedin.com/in/omkmorendha',
+    handle: 'in/om-morendha',
+    href: 'https://linkedin.com/in/om-morendha',
     verb: 'GET',
   },
   {
@@ -85,7 +85,9 @@ export default function ContactPage() {
   "open_to": [`}
                 <span className="tok-string">&quot;collab&quot;</span>
                 {`, `}
-                <span className="tok-string">&quot;hard problems&quot;</span>
+                <span className="tok-string">&quot;founding&quot;</span>
+                {`, `}
+                <span className="tok-string">&quot;freelance&quot;</span>
                 {`]
 }`}
               </pre>
