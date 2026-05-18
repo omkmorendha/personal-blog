@@ -21,7 +21,7 @@ function WhoamiOutput() {
         <span>
           <span className="tok-meta">user.</span>
           <span className="tok-key">role</span> {'     = '}
-          <span className="tok-string">&quot;AI Innovation Specialist @ Trilogy&quot;</span>
+          <span className="tok-string">&quot;ex-AI Innovation Specialist @ Trilogy&quot;</span>
         </span>
         <span>
           <span className="tok-meta">user.</span>
@@ -60,10 +60,17 @@ function WhoamiOutput() {
         </span>
         <span>
           <span className="tok-meta">user.</span>
+          <span className="tok-key">availability</span>
+          {' = '}
+          <span className="tok-string">&quot;open to new roles&quot;</span>{' '}
+          <span className="tok-comment">// founding / staff / senior / forward-deployed</span>
+        </span>
+        <span>
+          <span className="tok-meta">user.</span>
           <span className="tok-key">status</span>
           {'   = '}
-          <span className="tok-accent">● online</span>{' '}
-          <span className="tok-comment">// building agents that ship work</span>
+          <span className="tok-accent">● available</span>{' '}
+          <span className="tok-comment">// agent infra · applied AI · forward-deployed</span>
         </span>
       </div>
     </div>
@@ -77,29 +84,28 @@ function CatAbout() {
         <span className="tok-meta">────────────────── ~/about.md ──────────────────</span>
       </div>
       <p>
-        Hi, I&apos;m <span className="tok-accent">Om</span> — an AI engineer who builds the plumbing
+        Hi, I&apos;m <span className="tok-accent">Om</span>, an AI engineer who builds the plumbing
         that lets LLM agents do <em>real work</em> against <em>real data</em>.
       </p>
       <p>
         At <span className="tok-accent">Trilogy (ESW Capital)</span> I shipped a company-wide MCP
-        server (OAuth2 + RBAC) that lets 50+ employees point AI agents at NetSuite, Redshift, and
-        internal APIs; re-engineered a 500-table warehouse into Kimball-style dimensional models so
-        LLMs can query it without hallucinating; and built{' '}
-        <span className="tok-accent">Budget Bot</span> — an agent that automated quarterly financial
-        planning across 30+ portfolio companies of a $3B+ AUM PE firm.
+        server (OAuth2 + RBAC) that lets all employees point AI agents at NetSuite, Redshift, and
+        internal APIs; re-engineered a bloated data warehouse into Kimball-style dimensional models
+        so LLMs can query it while minimizing hallucination; and built{' '}
+        <span className="tok-accent">Budget Bot</span>, an agent that automated quarterly financial
+        planning across 30+ portfolio companies
       </p>
       <p>
         Before that I led an algorithmic trading platform at{' '}
-        <span className="tok-accent">Cognyx AI</span> — Django + Postgres + Redis + WebSockets,
-        parallel copy-trading across 100+ concurrent users, backtesting against 5+ years of market
-        data.
+        <span className="tok-accent">Cognyx AI</span>, Matrixs AI a parallel copy-trading across
+        hundreds of concurrent users
       </p>
       <p>
         I&apos;m interested in <em>agent infrastructure</em>, <em>data modeling for LLMs</em>, and
         the craft of making AI systems reliable enough to trust with money and decisions. I write to
         think clearly about all of it.
       </p>
-      <p className="tok-meta">// EOF — 4 paragraphs</p>
+      <p className="tok-meta">// EOF, 4 paragraphs</p>
     </div>
   );
 }
