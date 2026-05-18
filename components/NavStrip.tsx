@@ -36,7 +36,7 @@ export default function NavStrip() {
         <span className="led" />
         <span>UTC+5:30</span>
         <span>·</span>
-        <span>~/personal-blog</span>
+        <span>~/home-bin</span>
       </div>
     </div>
   );
