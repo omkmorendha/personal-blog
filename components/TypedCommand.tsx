@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import Prompt from "./Prompt";
+import { useEffect, useRef, useState } from 'react';
+import Prompt from './Prompt';
 
 interface TypedCommandProps {
   command: string;
@@ -14,13 +14,13 @@ interface TypedCommandProps {
 
 export default function TypedCommand({
   command,
-  prompt = "~",
+  prompt = '~',
   speed = 28,
   skip = false,
   onDone,
   children,
 }: TypedCommandProps) {
-  const [typed, setTyped] = useState<string>(skip ? command : "");
+  const [typed, setTyped] = useState<string>(skip ? command : '');
   const [doneTyping, setDoneTyping] = useState<boolean>(skip);
   const [showOutput, setShowOutput] = useState<boolean>(skip);
   const onDoneRef = useRef<(() => void) | undefined>(onDone);
@@ -36,7 +36,7 @@ export default function TypedCommand({
     }
     let cancelled = false;
     let i = 0;
-    setTyped("");
+    setTyped('');
     setDoneTyping(false);
     setShowOutput(false);
     function step() {

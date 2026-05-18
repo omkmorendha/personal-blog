@@ -1,8 +1,8 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
-const postsDir = path.join(process.cwd(), "content/posts");
+const postsDir = path.join(process.cwd(), 'content/posts');
 
 export interface PostMeta {
   slug: string;
@@ -26,17 +26,23 @@ function estimateReadingTime(content: string): string {
 export function getAllPosts(): PostMeta[] {
   if (!fs.existsSync(postsDir)) return [];
 
-  const files = fs.readdirSync(postsDir).filter((f) => f.endsWith(".mdx") || f.endsWith(".md"));
+  const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.mdx') || f.endsWith('.md'));
 
   const posts = files.map((file) => {
-    const slug = file.replace(/\.(mdx|md)$/, "");
-    const raw = fs.readFileSync(path.join(postsDir, file), "utf-8");
+    const slug = file.replace(/\.(mdx|md)$/, '');
+    const raw = fs.readFileSync(path.join(postsDir, file), 'utf-8');
     const { data, content } = matter(raw);
     return {
       slug,
       title: data.title ?? slug,
-      date: data.date ? new Date(data.date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" }) : "",
-      description: data.description ?? "",
+      date: data.date
+        ? new Date(data.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })
+        : '',
+      description: data.description ?? '',
       tags: data.tags ?? [],
       readingTime: estimateReadingTime(content),
     } as PostMeta;
@@ -55,14 +61,20 @@ export function getPost(slug: string): Post | null {
   const filePath = fs.existsSync(mdxPath) ? mdxPath : fs.existsSync(mdPath) ? mdPath : null;
   if (!filePath) return null;
 
-  const raw = fs.readFileSync(filePath, "utf-8");
+  const raw = fs.readFileSync(filePath, 'utf-8');
   const { data, content } = matter(raw);
 
   return {
     slug,
     title: data.title ?? slug,
-    date: data.date ? new Date(data.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) : "",
-    description: data.description ?? "",
+    date: data.date
+      ? new Date(data.date).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+      : '',
+    description: data.description ?? '',
     tags: data.tags ?? [],
     readingTime: estimateReadingTime(content),
     content,

@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import { getAllPosts, getPost } from "@/lib/posts";
-import Prompt from "@/components/Prompt";
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getAllPosts, getPost } from '@/lib/posts';
+import Prompt from '@/components/Prompt';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -37,10 +37,10 @@ export default async function PostPage({ params }: Props) {
       </div>
       <div className="hero-tagline">
         <span className="tok-comment">
-          //{" "}
+          //{' '}
           <Link href="/blog" className="link-inline">
             cd ..
-          </Link>{" "}
+          </Link>{' '}
           · {post.date} · {post.readingTime}
         </span>
       </div>
@@ -52,20 +52,15 @@ export default async function PostPage({ params }: Props) {
             <span className="cmd-text">cat {post.slug}.md</span>
           </div>
           <div className="cmd-output">
-            <div
-              className="cat-head"
-              style={{ marginBottom: 16 }}
-            >
-              <span className="tok-meta">
-                ────────────────── {post.slug}.md ──────────────────
-              </span>
+            <div className="cat-head" style={{ marginBottom: 16 }}>
+              <span className="tok-meta">────────────────── {post.slug}.md ──────────────────</span>
             </div>
 
             <h1
               style={{
-                color: "var(--accent)",
-                fontSize: "1.75rem",
-                margin: "0 0 0.5rem",
+                color: 'var(--accent)',
+                fontSize: '1.75rem',
+                margin: '0 0 0.5rem',
                 letterSpacing: 0,
                 fontWeight: 700,
               }}
@@ -76,9 +71,9 @@ export default async function PostPage({ params }: Props) {
             {post.tags && post.tags.length > 0 && (
               <div
                 style={{
-                  display: "flex",
+                  display: 'flex',
                   gap: 8,
-                  flexWrap: "wrap",
+                  flexWrap: 'wrap',
                   marginBottom: 24,
                 }}
               >
@@ -95,7 +90,7 @@ export default async function PostPage({ params }: Props) {
             </article>
 
             <div style={{ marginTop: 32 }} className="cmd-note">
-              <span className="tok-meta">// EOF</span> ·{" "}
+              <span className="tok-meta">// EOF</span> ·{' '}
               <Link href="/blog" className="link-inline">
                 ← back to ~/writing
               </Link>

@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { getAllPosts } from "@/lib/posts";
-import RouteHeading from "@/components/RouteHeading";
-import Prompt from "@/components/Prompt";
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { getAllPosts } from '@/lib/posts';
+import RouteHeading from '@/components/RouteHeading';
+import Prompt from '@/components/Prompt';
 
 export const metadata: Metadata = {
-  title: "tail -f writing.log",
-  description: "Essays and notes on software, systems, and AI agents.",
+  title: 'tail -f writing.log',
+  description: 'Essays and notes on software, systems, and AI agents.',
 };
 
 function approxWords(reading?: string): string {
-  if (!reading) return "—";
+  if (!reading) return '—';
   const m = reading.match(/(\d+)/);
-  if (!m) return "—";
+  if (!m) return '—';
   const min = parseInt(m[1], 10);
   return `${min * 200}w`;
 }
@@ -49,21 +49,15 @@ export default function BlogPage() {
             {posts.length === 0 ? (
               <div className="ls-output">
                 <div className="ls-totals">total 0</div>
-                <div style={{ color: "var(--fg-dim)" }}>
-                  <span className="tok-meta">
-                    // ls: no posts in this directory yet
-                  </span>
+                <div style={{ color: 'var(--fg-dim)' }}>
+                  <span className="tok-meta">// ls: no posts in this directory yet</span>
                 </div>
               </div>
             ) : (
               <div className="ls-output">
                 <div className="ls-totals">total {posts.length * 8}</div>
                 {posts.map((p) => (
-                  <Link
-                    key={p.slug}
-                    href={`/blog/${p.slug}`}
-                    className="ls-row"
-                  >
+                  <Link key={p.slug} href={`/blog/${p.slug}`} className="ls-row">
                     <span className="ls-perms">-rw-r--r--</span>
                     <span className="ls-owner">om staff</span>
                     <span className="ls-size">{approxWords(p.readingTime)}</span>
@@ -73,7 +67,9 @@ export default function BlogPage() {
                       <span className="ls-ext">.md</span>
                       <span className="ls-tags">
                         {p.tags?.map((t) => (
-                          <span key={t} className="ls-tag"># {t}</span>
+                          <span key={t} className="ls-tag">
+                            # {t}
+                          </span>
                         ))}
                       </span>
                     </span>
@@ -99,16 +95,12 @@ export default function BlogPage() {
               </div>
               <div className="stat">
                 <span className="stat-num">
-                  {totalWords >= 1000
-                    ? `${(totalWords / 1000).toFixed(1)}K`
-                    : totalWords}
+                  {totalWords >= 1000 ? `${(totalWords / 1000).toFixed(1)}K` : totalWords}
                 </span>
                 <span className="stat-lbl">words written</span>
               </div>
               <div className="stat">
-                <span className="stat-num">
-                  {avgMin > 0 ? avgMin.toFixed(1) : "—"}
-                </span>
+                <span className="stat-num">{avgMin > 0 ? avgMin.toFixed(1) : '—'}</span>
                 <span className="stat-lbl">min avg read</span>
               </div>
               <div className="stat">
