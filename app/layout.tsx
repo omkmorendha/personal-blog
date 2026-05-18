@@ -7,10 +7,10 @@ import StatusLine from '@/components/StatusLine';
 export const metadata: Metadata = {
   title: {
     default: 'om@morendha',
-    template: '%s — om@morendha',
+    template: '%s - om@morendha',
   },
   description:
-    'Om Morendha — AI engineer building agent infrastructure, MCP servers, and the data layer underneath.',
+    'Om Morendha, AI engineer building agent infrastructure, MCP servers, and the data layer underneath.',
   metadataBase: new URL('https://omkmorendha.com'),
   openGraph: {
     type: 'website',

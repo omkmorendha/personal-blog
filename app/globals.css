@@ -921,7 +921,7 @@ body.scanlines main {
   text-decoration-color: var(--accent);
 }
 
-/* MDX prose — terminal style */
+/* MDX prose, terminal style */
 .mdx-content {
   color: var(--fg);
   font-size: 14px;
@@ -1071,7 +1071,7 @@ body.scanlines main {
     max-width: 100%;
   }
 
-  /* nav — shrink tabs to fit, no horizontal scroll */
+  /* nav, shrink tabs to fit, no horizontal scroll */
   .nav-strip {
     overflow-x: hidden;
   }
@@ -1102,7 +1102,7 @@ body.scanlines main {
     flex-shrink: 0;
   }
 
-  /* prompt — stack prompt above command on mobile */
+  /* prompt, stack prompt above command on mobile */
   .prompt-big {
     font-size: 13px;
     display: block;
@@ -1132,7 +1132,7 @@ body.scanlines main {
     font-size: 12px;
   }
 
-  /* inline cmd lines — wrap prompt+command cleanly */
+  /* inline cmd lines, wrap prompt+command cleanly */
   .cmd-line {
     gap: 4px;
   }
@@ -1143,7 +1143,7 @@ body.scanlines main {
     word-break: break-word;
   }
 
-  /* whoami banner — make ASCII fit by shrinking via overflow scroll */
+  /* whoami banner, make ASCII fit by shrinking via overflow scroll */
   .whoami-banner {
     padding: 12px 14px;
     max-width: 100%;
@@ -1214,7 +1214,7 @@ body.scanlines main {
     padding-right: 4px;
   }
 
-  /* status line — hide noisy segments, keep mode/branch/time */
+  /* status line, hide noisy segments, keep mode/branch/time */
   .status-line {
     font-size: 10.5px;
     flex-wrap: nowrap;

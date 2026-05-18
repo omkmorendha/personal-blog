@@ -5,7 +5,7 @@ import Prompt from '@/components/Prompt';
 
 export const metadata: Metadata = {
   title: 'git log --oneline',
-  description: 'Things Om Morendha has built — AI agent infra, data, and tooling.',
+  description: 'Things Om Morendha has built, AI agent infra, data, and tooling.',
 };
 
 type Status = 'active' | 'maintenance' | 'archived';
@@ -54,7 +54,7 @@ const PROJECTS: Project[] = [
   {
     name: 'cognyx-trading',
     description:
-      'Algorithmic copy-trading platform — Django + Postgres + Redis + WebSockets. 100+ concurrent users, 5+ years of backtesting data, 12 microservices on AWS at 99.5% uptime.',
+      'Algorithmic copy-trading platform, Django + Postgres + Redis + WebSockets. 100+ concurrent users, 5+ years of backtesting data, 12 microservices on AWS at 99.5% uptime.',
     tags: ['django', 'postgres', 'redis', 'aws'],
     href: 'https://github.com/omkmorendha',
     lang: 'python',
@@ -75,7 +75,7 @@ export default function ProjectsPage() {
       <RouteHeading
         cwd="~/projects"
         command="git log --oneline --all"
-        tagline="// things I've built — most are open source"
+        tagline="// things I've built, most are open source"
       />
       <div className="hero-body">
         <div className="cmd-block">
