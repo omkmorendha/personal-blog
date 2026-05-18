@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 function approxWords(reading?: string): string {
-  if (!reading) return '—';
+  if (!reading) return '-';
   const m = reading.match(/(\d+)/);
-  if (!m) return '—';
+  if (!m) return '-';
   const min = parseInt(m[1], 10);
   return `${min * 200}w`;
 }
@@ -36,7 +36,7 @@ export default function BlogPage() {
       <RouteHeading
         cwd="~/writing"
         command="tail -f writing.log"
-        tagline="// stream of essays and notes — most recent first"
+        tagline="// stream of essays and notes, most recent first"
       />
       <div className="hero-body">
         {/* ls -la posts */}
@@ -100,7 +100,7 @@ export default function BlogPage() {
                 <span className="stat-lbl">words written</span>
               </div>
               <div className="stat">
-                <span className="stat-num">{avgMin > 0 ? avgMin.toFixed(1) : '—'}</span>
+                <span className="stat-num">{avgMin > 0 ? avgMin.toFixed(1) : '-'}</span>
                 <span className="stat-lbl">min avg read</span>
               </div>
               <div className="stat">

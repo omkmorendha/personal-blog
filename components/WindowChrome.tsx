@@ -21,9 +21,9 @@ export default function WindowChrome({
           ) : (
             <>
               <span className="title-host">om@morendha</span>
-              <span className="title-sep">—</span>
+              <span className="title-sep">-</span>
               <span>-zsh</span>
-              <span className="title-sep">—</span>
+              <span className="title-sep">-</span>
               <span>120×40</span>
             </>
           )}

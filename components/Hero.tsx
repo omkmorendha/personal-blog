@@ -116,7 +116,7 @@ function PostsLs({ posts }: { posts: PostMeta[] }) {
       <div className="ls-output">
         <div className="ls-totals">total 0</div>
         <div style={{ color: 'var(--fg-dim)' }}>
-          <span className="tok-meta">// no posts yet — `vim posts/hello-world.md`</span>
+          <span className="tok-meta">// no posts yet, `vim posts/hello-world.md`</span>
         </div>
       </div>
     );
@@ -128,7 +128,7 @@ function PostsLs({ posts }: { posts: PostMeta[] }) {
         <Link key={p.slug} href={`/blog/${p.slug}`} className="ls-row">
           <span className="ls-perms">-rw-r--r--</span>
           <span className="ls-owner">om staff</span>
-          <span className="ls-size">{(p.readingTime || '—').replace(' min read', 'K')}</span>
+          <span className="ls-size">{(p.readingTime || '-').replace(' min read', 'K')}</span>
           <span className="ls-date">{p.date}</span>
           <span className="ls-name">
             <span className="ls-title">{p.title}</span>

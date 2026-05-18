@@ -5,7 +5,7 @@ import ContactCopy from '@/components/ContactCopy';
 
 export const metadata: Metadata = {
   title: 'curl /contact',
-  description: 'Reach Om Morendha — pipes that go directly to the inbox.',
+  description: 'Reach Om Morendha, pipes that go directly to the inbox.',
 };
 
 const LINKS = [
@@ -54,7 +54,7 @@ export default function ContactPage() {
           <div className="cmd-output">
             <div className="curl-output">
               <div className="curl-pre">
-                <span className="tok-comment">// HTTP/2 200 — application/json</span>
+                <span className="tok-comment">// HTTP/2 200, application/json</span>
               </div>
               <pre className="json-block">
                 {`{

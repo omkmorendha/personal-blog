@@ -1,6 +1,6 @@
 # personal-blog
 
-Source for [omkmorendha.com](https://omkmorendha.com) — a Next.js 16 site deployed to Cloudflare Workers via [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare).
+Source for [omkmorendha.com](https://omkmorendha.com), a Next.js 16 site deployed to Cloudflare Workers via [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare).
 
 ## Stack
 
