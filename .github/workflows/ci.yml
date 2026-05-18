@@ -42,3 +42,50 @@ jobs:
       - run: npm ci
       - name: Check formatting
         run: npm run format:check --if-present
+
+  worker-size:
+    name: Worker bundle size
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      # Cloudflare Workers free plan: 3 MiB gzipped script limit.
+      # We fail at 2.7 MiB to leave headroom for shared module overhead.
+      MAX_GZIP_BYTES: 2831155
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build OpenNext bundle
+        run: npx opennextjs-cloudflare build --minify
+      - name: Check handler size
+        run: |
+          HANDLER=.open-next/server-functions/default/handler.mjs
+          if [ ! -f "$HANDLER" ]; then
+            echo "::error::Expected $HANDLER not found"
+            exit 1
+          fi
+          RAW=$(stat -c %s "$HANDLER")
+          GZIP=$(gzip -c "$HANDLER" | wc -c)
+          RAW_MB=$(awk "BEGIN { printf \"%.2f\", $RAW / 1048576 }")
+          GZIP_MB=$(awk "BEGIN { printf \"%.2f\", $GZIP / 1048576 }")
+          LIMIT_MB=$(awk "BEGIN { printf \"%.2f\", $MAX_GZIP_BYTES / 1048576 }")
+          echo "Handler raw:      ${RAW_MB} MiB"
+          echo "Handler gzipped:  ${GZIP_MB} MiB"
+          echo "Limit (gzipped):  ${LIMIT_MB} MiB (Cloudflare free plan headroom)"
+          echo ""
+          {
+            echo "### Worker bundle size"
+            echo ""
+            echo "| | Size |"
+            echo "| --- | ---: |"
+            echo "| Raw | ${RAW_MB} MiB |"
+            echo "| Gzipped | ${GZIP_MB} MiB |"
+            echo "| Budget (gzipped) | ${LIMIT_MB} MiB |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$GZIP" -gt "$MAX_GZIP_BYTES" ]; then
+            echo "::error::Worker handler gzipped size ${GZIP_MB} MiB exceeds budget ${LIMIT_MB} MiB. Cloudflare Workers free plan cap is 3 MiB."
+            exit 1
+          fi
