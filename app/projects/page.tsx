@@ -1,193 +1,154 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import RouteHeading from "@/components/RouteHeading";
+import Prompt from "@/components/Prompt";
 
 export const metadata: Metadata = {
-  title: "Projects",
-  description: "Things Om Morendha has built.",
+  title: "git log --oneline",
+  description: "Things Om Morendha has built — AI agent infra, data, and tooling.",
 };
 
-const projects = [
+type Status = "active" | "maintenance" | "archived";
+
+interface Project {
+  name: string;
+  description: string;
+  tags: string[];
+  href: string;
+  lang: string;
+  status: Status;
+  commit: string;
+}
+
+const PROJECTS: Project[] = [
   {
-    name: "Project Name",
+    name: "trilogy-mcp",
     description:
-      "A detailed description of this project — what it does, why you built it, what technologies you used.",
-    tags: ["TypeScript", "Next.js"],
+      "Company-wide MCP server (OAuth2 + RBAC) connecting AI agents to NetSuite, Redshift, and internal APIs for 50+ employees.",
+    tags: ["mcp", "oauth2", "rbac", "fastapi"],
     href: "https://github.com/omkmorendha",
-    status: "Active",
+    lang: "python",
+    status: "active",
+    commit: "f2a91e0",
   },
   {
-    name: "Another Project",
+    name: "budget-bot",
     description:
-      "Replace this with your actual project. Explain the problem it solves and what was interesting about building it.",
-    tags: ["Go", "Distributed Systems"],
+      "Agent that automates quarterly financial planning across 30+ portfolio companies of a $3B+ AUM PE firm. Cut manual line-item generation by 80%.",
+    tags: ["llm-agents", "finance", "langchain"],
     href: "https://github.com/omkmorendha",
-    status: "Completed",
+    lang: "python",
+    status: "active",
+    commit: "ab30c47",
   },
   {
-    name: "Open Source Contribution",
+    name: "warehouse-kimball",
     description:
-      "Description of an open source project you contributed to, or another personal project you want to highlight here.",
-    tags: ["Rust", "CLI"],
+      "Re-engineered 500+ unstructured tables into Kimball star/snowflake schemas so LLMs can query the warehouse without hallucinating.",
+    tags: ["data-engineering", "redshift", "dbt"],
     href: "https://github.com/omkmorendha",
-    status: "Archived",
+    lang: "python",
+    status: "active",
+    commit: "c8e1102",
+  },
+  {
+    name: "cognyx-trading",
+    description:
+      "Algorithmic copy-trading platform — Django + Postgres + Redis + WebSockets. 100+ concurrent users, 5+ years of backtesting data, 12 microservices on AWS at 99.5% uptime.",
+    tags: ["django", "postgres", "redis", "aws"],
+    href: "https://github.com/omkmorendha",
+    lang: "python",
+    status: "archived",
+    commit: "1f72d8a",
   },
 ];
 
-const statusColor: Record<string, string> = {
-  Active: "#2d8a4e",
-  Completed: "var(--ink-muted)",
-  Archived: "var(--border-dark)",
-};
+function langClass(lang: string) {
+  const key = lang.toLowerCase();
+  const known = ["python", "go", "rust", "typescript", "javascript"];
+  return known.includes(key) ? `lang-${key}` : "lang-default";
+}
 
 export default function ProjectsPage() {
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 2rem" }}>
-      <section style={{ padding: "4rem 0 2rem" }}>
-        <p
-          className="mono fade-up fade-up-1"
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--ink-muted)",
-            marginBottom: "1rem",
-          }}
-        >
-          Projects
-        </p>
-        <h1
-          className="fade-up fade-up-2"
-          style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.5rem, 6vw, 4rem)",
-            fontWeight: 900,
-            letterSpacing: "-0.04em",
-            lineHeight: 1.05,
-            marginBottom: "1rem",
-          }}
-        >
-          Things I&apos;ve built.
-        </h1>
-        <p
-          className="fade-up fade-up-3"
-          style={{ color: "var(--ink-muted)", maxWidth: "480px", fontSize: "1rem" }}
-        >
-          A selection of projects — both personal and professional. Source code
-          available on{" "}
-          <Link href="https://github.com/omkmorendha" className="prose-link" target="_blank" rel="noopener noreferrer">
-            GitHub
-          </Link>
-          .
-        </p>
-      </section>
-
-      <div className="rule fade-up fade-up-3" style={{ marginBottom: "0" }} />
-
-      <section className="fade-up fade-up-4" style={{ paddingBottom: "5rem" }}>
-        {projects.map((project) => (
-          <article
-            key={project.name}
-            style={{
-              borderBottom: "1px solid var(--border)",
-              padding: "2.5rem 0",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-start",
-                gap: "1rem",
-                marginBottom: "0.75rem",
-                flexWrap: "wrap",
-              }}
-            >
-              <div style={{ display: "flex", gap: "1rem", alignItems: "center", flexWrap: "wrap" }}>
+    <div className="route">
+      <RouteHeading
+        cwd="~/projects"
+        command="git log --oneline --all"
+        tagline="// things I've built — most are open source"
+      />
+      <div className="hero-body">
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~/projects" showBranch={false} />
+            <span className="cmd-text">git log --oneline --decorate --all</span>
+          </div>
+          <div className="cmd-output">
+            <div className="git-output">
+              {PROJECTS.map((p, i) => (
                 <Link
-                  href={project.href}
+                  key={p.name}
+                  href={p.href}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: "none" }}
+                  rel="noreferrer"
+                  className="git-row"
                 >
-                  <h2
-                    className="hover-underline"
-                    style={{
-                      fontFamily: "'Playfair Display', Georgia, serif",
-                      fontSize: "1.4rem",
-                      fontWeight: 700,
-                      letterSpacing: "-0.02em",
-                      color: "var(--ink)",
-                      display: "inline-block",
-                    }}
-                  >
-                    {project.name}
-                  </h2>
-                </Link>
-                <span
-                  className="mono"
-                  style={{
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.12em",
-                    textTransform: "uppercase",
-                    color: statusColor[project.status] ?? "var(--ink-muted)",
-                  }}
-                >
-                  ● {project.status}
-                </span>
-              </div>
-
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="mono"
-                    style={{
-                      fontSize: "0.6rem",
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-muted)",
-                      border: "1px solid var(--border)",
-                      padding: "2px 8px",
-                    }}
-                  >
-                    {tag}
+                  <span className="git-graph">
+                    <span className="git-dot" />
+                    {i < PROJECTS.length - 1 && <span className="git-line" />}
                   </span>
-                ))}
-              </div>
+                  <div className="git-body">
+                    <div className="git-head-row">
+                      <span className="git-hash">{p.commit}</span>
+                      <span className="git-ref">
+                        (<span className="tok-accent">HEAD →</span>{" "}
+                        <span className="tok-string">{p.name}</span>)
+                      </span>
+                      <span className={`git-status status-${p.status}`}>
+                        ● {p.status}
+                      </span>
+                    </div>
+                    <div className="git-desc">{p.description}</div>
+                    <div className="git-foot-row">
+                      <span className="git-lang">
+                        <span className={`lang-dot ${langClass(p.lang)}`} />{" "}
+                        {p.lang}
+                      </span>
+                      {p.tags.map((t) => (
+                        <span key={t} className="git-tag">
+                          {t}
+                        </span>
+                      ))}
+                      <span className="git-cta">→ git clone</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
             </div>
+          </div>
+        </div>
 
-            <p
-              style={{
-                color: "var(--ink-muted)",
-                fontSize: "0.9375rem",
-                lineHeight: 1.7,
-                maxWidth: "600px",
-              }}
-            >
-              {project.description}
-            </p>
-
-            <div style={{ marginTop: "1.25rem" }}>
-              <Link
-                href={project.href}
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~/projects" showBranch={false} />
+            <span className="cmd-text">echo done</span>
+          </div>
+          <div className="cmd-output">
+            <div className="cmd-note">
+              <span className="tok-meta">→ </span> visit{" "}
+              <a
+                href="https://github.com/omkmorendha"
                 target="_blank"
-                rel="noopener noreferrer"
-                className="hover-underline"
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "var(--red)",
-                  textDecoration: "none",
-                }}
+                rel="noreferrer"
+                className="link-inline"
               >
-                View on GitHub →
-              </Link>
+                github.com/omkmorendha
+              </a>{" "}
+              <span className="tok-meta">for the full list</span>
             </div>
-          </article>
-        ))}
-      </section>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

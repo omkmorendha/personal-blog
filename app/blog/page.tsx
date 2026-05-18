@@ -1,156 +1,124 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts } from "@/lib/posts";
+import RouteHeading from "@/components/RouteHeading";
+import Prompt from "@/components/Prompt";
 
 export const metadata: Metadata = {
-  title: "Writing",
-  description: "Essays and notes on software, systems, and thinking.",
+  title: "tail -f writing.log",
+  description: "Essays and notes on software, systems, and AI agents.",
 };
+
+function approxWords(reading?: string): string {
+  if (!reading) return "—";
+  const m = reading.match(/(\d+)/);
+  if (!m) return "—";
+  const min = parseInt(m[1], 10);
+  return `${min * 200}w`;
+}
 
 export default function BlogPage() {
   const posts = getAllPosts();
+  const totalWords = posts.reduce((sum, p) => {
+    const m = p.readingTime?.match(/(\d+)/);
+    return sum + (m ? parseInt(m[1], 10) * 200 : 0);
+  }, 0);
+  const avgMin =
+    posts.length === 0
+      ? 0
+      : posts.reduce((s, p) => {
+          const m = p.readingTime?.match(/(\d+)/);
+          return s + (m ? parseInt(m[1], 10) : 0);
+        }, 0) / posts.length;
 
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 2rem" }}>
-      <section style={{ padding: "4rem 0 2rem" }}>
-        <p
-          className="mono fade-up fade-up-1"
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--ink-muted)",
-            marginBottom: "1rem",
-          }}
-        >
-          Writing
-        </p>
-        <h1
-          className="fade-up fade-up-2"
-          style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.5rem, 6vw, 4rem)",
-            fontWeight: 900,
-            letterSpacing: "-0.04em",
-            lineHeight: 1.05,
-            marginBottom: "1rem",
-          }}
-        >
-          Essays &amp; notes.
-        </h1>
-        <p
-          className="fade-up fade-up-3"
-          style={{ color: "var(--ink-muted)", maxWidth: "480px", fontSize: "1rem" }}
-        >
-          Thoughts on software engineering, distributed systems, and whatever
-          I&apos;m currently learning.
-        </p>
-      </section>
-
-      <div className="rule fade-up fade-up-3" style={{ marginBottom: "0" }}>
-        {posts.length} {posts.length === 1 ? "post" : "posts"}
-      </div>
-
-      <section className="fade-up fade-up-4" style={{ paddingBottom: "5rem" }}>
-        {posts.length === 0 ? (
-          <p
-            style={{
-              color: "var(--ink-muted)",
-              fontStyle: "italic",
-              padding: "3rem 0",
-              textAlign: "center",
-            }}
-          >
-            No posts yet. Coming soon.
-          </p>
-        ) : (
-          posts.map((post) => (
-            <article
-              key={post.slug}
-              style={{
-                borderBottom: "1px solid var(--border)",
-                padding: "2.25rem 0",
-                display: "grid",
-                gridTemplateColumns: "1fr auto",
-                gap: "2rem",
-                alignItems: "start",
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    display: "flex",
-                    gap: "1rem",
-                    alignItems: "center",
-                    marginBottom: "0.6rem",
-                  }}
-                >
-                  {post.tags?.map((tag) => (
-                    <span
-                      key={tag}
-                      className="mono"
-                      style={{
-                        fontSize: "0.6rem",
-                        letterSpacing: "0.15em",
-                        textTransform: "uppercase",
-                        color: "var(--red)",
-                        border: "1px solid var(--red)",
-                        padding: "2px 8px",
-                        borderRadius: "1px",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
+    <div className="route">
+      <RouteHeading
+        cwd="~/writing"
+        command="tail -f writing.log"
+        tagline="// stream of essays and notes — most recent first"
+      />
+      <div className="hero-body">
+        {/* ls -la posts */}
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~/writing" showBranch={false} />
+            <span className="cmd-text">cd ~/writing && ls -la *.md</span>
+          </div>
+          <div className="cmd-output">
+            {posts.length === 0 ? (
+              <div className="ls-output">
+                <div className="ls-totals">total 0</div>
+                <div style={{ color: "var(--fg-dim)" }}>
+                  <span className="tok-meta">
+                    // ls: no posts in this directory yet
+                  </span>
                 </div>
-
-                <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
-                  <h2
-                    className="hover-underline"
-                    style={{
-                      fontFamily: "'Playfair Display', Georgia, serif",
-                      fontSize: "1.5rem",
-                      fontWeight: 700,
-                      letterSpacing: "-0.02em",
-                      marginBottom: "0.5rem",
-                      color: "var(--ink)",
-                      display: "inline-block",
-                      lineHeight: 1.2,
-                    }}
+              </div>
+            ) : (
+              <div className="ls-output">
+                <div className="ls-totals">total {posts.length * 8}</div>
+                {posts.map((p) => (
+                  <Link
+                    key={p.slug}
+                    href={`/blog/${p.slug}`}
+                    className="ls-row"
                   >
-                    {post.title}
-                  </h2>
-                </Link>
-
-                <p style={{ color: "var(--ink-muted)", fontSize: "0.9375rem", lineHeight: 1.6 }}>
-                  {post.description}
-                </p>
+                    <span className="ls-perms">-rw-r--r--</span>
+                    <span className="ls-owner">om staff</span>
+                    <span className="ls-size">{approxWords(p.readingTime)}</span>
+                    <span className="ls-date">{p.date}</span>
+                    <span className="ls-name">
+                      <span className="ls-title">{p.title}</span>
+                      <span className="ls-ext">.md</span>
+                      <span className="ls-tags">
+                        {p.tags?.map((t) => (
+                          <span key={t} className="ls-tag"># {t}</span>
+                        ))}
+                      </span>
+                    </span>
+                    <span className="ls-desc">{p.description}</span>
+                  </Link>
+                ))}
               </div>
+            )}
+          </div>
+        </div>
 
-              <div style={{ textAlign: "right", flexShrink: 0 }}>
-                <time
-                  className="mono"
-                  style={{
-                    display: "block",
-                    fontSize: "0.7rem",
-                    letterSpacing: "0.05em",
-                    color: "var(--ink-muted)",
-                    marginBottom: "0.25rem",
-                  }}
-                >
-                  {post.date}
-                </time>
-                <span
-                  className="mono"
-                  style={{ fontSize: "0.65rem", color: "var(--border-dark)" }}
-                >
-                  {post.readingTime}
+        {/* stats */}
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~/writing" showBranch={false} />
+            <span className="cmd-text">echo $POSTS_PER_YEAR</span>
+          </div>
+          <div className="cmd-output">
+            <div className="stats-grid">
+              <div className="stat">
+                <span className="stat-num">{posts.length}</span>
+                <span className="stat-lbl">posts shipped</span>
+              </div>
+              <div className="stat">
+                <span className="stat-num">
+                  {totalWords >= 1000
+                    ? `${(totalWords / 1000).toFixed(1)}K`
+                    : totalWords}
                 </span>
+                <span className="stat-lbl">words written</span>
               </div>
-            </article>
-          ))
-        )}
-      </section>
+              <div className="stat">
+                <span className="stat-num">
+                  {avgMin > 0 ? avgMin.toFixed(1) : "—"}
+                </span>
+                <span className="stat-lbl">min avg read</span>
+              </div>
+              <div className="stat">
+                <span className="stat-num">∞</span>
+                <span className="stat-lbl">drafts left</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

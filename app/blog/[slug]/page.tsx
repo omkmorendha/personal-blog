@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPost } from "@/lib/posts";
+import Prompt from "@/components/Prompt";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -28,83 +29,80 @@ export default async function PostPage({ params }: Props) {
   if (!post) notFound();
 
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 2rem" }}>
-      {/* Back link */}
-      <div style={{ padding: "2.5rem 0 0" }}>
-        <Link
-          href="/blog"
-          className="mono hover-underline"
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: "var(--ink-muted)",
-            textDecoration: "none",
-          }}
-        >
-          ← Writing
-        </Link>
+    <div className="route">
+      <div className="route-heading">
+        <Prompt cwd="~/writing" branch="main" big />
+        <span className="hero-cmd">cat {post.slug}.md</span>
+        <span className="cursor hero-cursor blink">█</span>
+      </div>
+      <div className="hero-tagline">
+        <span className="tok-comment">
+          //{" "}
+          <Link href="/blog" className="link-inline">
+            cd ..
+          </Link>{" "}
+          · {post.date} · {post.readingTime}
+        </span>
       </div>
 
-      {/* Header */}
-      <header style={{ padding: "3rem 0 2.5rem" }}>
-        <div style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem", flexWrap: "wrap" }}>
-          {post.tags?.map((tag) => (
-            <span
-              key={tag}
-              className="mono"
+      <div className="hero-body">
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~/writing" showBranch={false} />
+            <span className="cmd-text">cat {post.slug}.md</span>
+          </div>
+          <div className="cmd-output">
+            <div
+              className="cat-head"
+              style={{ marginBottom: 16 }}
+            >
+              <span className="tok-meta">
+                ────────────────── {post.slug}.md ──────────────────
+              </span>
+            </div>
+
+            <h1
               style={{
-                fontSize: "0.6rem",
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
-                color: "var(--red)",
-                border: "1px solid var(--red)",
-                padding: "2px 8px",
+                color: "var(--accent)",
+                fontSize: "1.75rem",
+                margin: "0 0 0.5rem",
+                letterSpacing: 0,
+                fontWeight: 700,
               }}
             >
-              {tag}
-            </span>
-          ))}
+              # {post.title}
+            </h1>
+
+            {post.tags && post.tags.length > 0 && (
+              <div
+                style={{
+                  display: "flex",
+                  gap: 8,
+                  flexWrap: "wrap",
+                  marginBottom: 24,
+                }}
+              >
+                {post.tags.map((t) => (
+                  <span key={t} className="ls-tag">
+                    # {t}
+                  </span>
+                ))}
+              </div>
+            )}
+
+            <article className="mdx-content">
+              <MDXRemote source={post.content} />
+            </article>
+
+            <div style={{ marginTop: 32 }} className="cmd-note">
+              <span className="tok-meta">// EOF</span> ·{" "}
+              <Link href="/blog" className="link-inline">
+                ← back to ~/writing
+              </Link>
+            </div>
+          </div>
         </div>
-
-        <h1
-          style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 900,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.1,
-            marginBottom: "1.5rem",
-            color: "var(--ink)",
-          }}
-        >
-          {post.title}
-        </h1>
-
-        <div
-          className="mono"
-          style={{
-            display: "flex",
-            gap: "2rem",
-            color: "var(--ink-muted)",
-            fontSize: "0.7rem",
-            letterSpacing: "0.08em",
-          }}
-        >
-          <time>{post.date}</time>
-          <span>{post.readingTime}</span>
-        </div>
-      </header>
-
-      <div
-        className="rule"
-        style={{ marginBottom: "3rem", borderTop: "2px solid var(--ink)", paddingTop: "0" }}
-      />
-
-      {/* Content */}
-      <article className="mdx-content" style={{ maxWidth: "680px", paddingBottom: "5rem" }}>
-        <MDXRemote source={post.content} />
-      </article>
+      </div>
     </div>
   );
 }

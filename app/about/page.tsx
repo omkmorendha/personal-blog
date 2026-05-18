@@ -1,218 +1,142 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import RouteHeading from "@/components/RouteHeading";
+import Prompt from "@/components/Prompt";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "A little about Om Morendha — software engineer.",
+  title: "man om",
+  description: "A man page for Om Morendha — AI engineer.",
 };
 
 export default function AboutPage() {
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 2rem" }}>
-      <section style={{ padding: "4rem 0 2rem" }}>
-        <p
-          className="mono fade-up fade-up-1"
-          style={{
-            fontSize: "0.7rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--ink-muted)",
-            marginBottom: "1rem",
-          }}
-        >
-          About
-        </p>
-
-        <h1
-          className="fade-up fade-up-2"
-          style={{
-            fontFamily: "'Playfair Display', Georgia, serif",
-            fontSize: "clamp(2.5rem, 6vw, 4rem)",
-            fontWeight: 900,
-            letterSpacing: "-0.04em",
-            lineHeight: 1.05,
-            marginBottom: "3rem",
-          }}
-        >
-          A little about me.
-        </h1>
-      </section>
-
-      <div
-        className="rule fade-up fade-up-2"
-        style={{ marginBottom: "3rem" }}
+    <div className="route">
+      <RouteHeading
+        cwd="~"
+        command="man om"
+        tagline="// MORENDHA(1)                    User Commands                   MORENDHA(1)"
       />
-
-      <div
-        className="fade-up fade-up-3"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "2fr 1fr",
-          gap: "4rem",
-          paddingBottom: "5rem",
-          alignItems: "start",
-        }}
-      >
-        {/* Bio */}
-        <div>
-          <p
-            style={{
-              fontSize: "1.125rem",
-              lineHeight: 1.85,
-              color: "var(--ink-light)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Hi, I&apos;m Om — a software engineer who cares deeply about building
-            systems that are correct, fast, and understandable. I&apos;m drawn to
-            problems at the intersection of distributed systems, developer tooling,
-            and the craft of writing good software.
-          </p>
-          <p
-            style={{
-              fontSize: "1.125rem",
-              lineHeight: 1.85,
-              color: "var(--ink-light)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Outside of code, I think carefully about how ideas are communicated —
-            which is why I write. Clear writing and clear code share the same
-            underlying skill: ruthless removal of the unnecessary.
-          </p>
-          <p
-            style={{
-              fontSize: "1.125rem",
-              lineHeight: 1.85,
-              color: "var(--ink-light)",
-            }}
-          >
-            I&apos;m currently based in India. If you want to talk about an interesting
-            problem, a collaboration, or just exchange ideas —{" "}
-            <Link href="mailto:omkmorendha@gmail.com" className="prose-link">
-              reach out
-            </Link>
-            .
-          </p>
-        </div>
-
-        {/* Sidebar */}
-        <aside>
-          <div style={{ marginBottom: "2.5rem" }}>
-            <h2
-              className="mono"
-              style={{
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--ink-muted)",
-                marginBottom: "1rem",
-                borderBottom: "1px solid var(--border)",
-                paddingBottom: "0.5rem",
-              }}
-            >
-              Currently
-            </h2>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {[
-                "Building personal projects",
-                "Reading about distributed systems",
-                "Writing more, thinking clearer",
-              ].map((item) => (
-                <li
-                  key={item}
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--ink-light)",
-                    padding: "0.4rem 0",
-                    borderBottom: "1px solid var(--border)",
-                    lineHeight: 1.5,
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+      <div className="hero-body">
+        <div className="cmd-block">
+          <div className="cmd-line">
+            <Prompt cwd="~" showBranch={false} />
+            <span className="cmd-text">man om</span>
           </div>
+          <div className="cmd-output">
+            <div className="man-page">
+              <div className="man-section">
+                <div className="man-h">NAME</div>
+                <div className="man-p">
+                  <strong>om</strong> — AI engineer; builds agent infra and the
+                  data layer underneath it.
+                </div>
+              </div>
 
-          <div style={{ marginBottom: "2.5rem" }}>
-            <h2
-              className="mono"
-              style={{
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--ink-muted)",
-                marginBottom: "1rem",
-                borderBottom: "1px solid var(--border)",
-                paddingBottom: "0.5rem",
-              }}
-            >
-              Interests
-            </h2>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {[
-                "Distributed Systems",
-                "Developer Tooling",
-                "Language Design",
-                "Technical Writing",
-              ].map((item) => (
-                <li
-                  key={item}
-                  style={{
-                    fontSize: "0.9rem",
-                    color: "var(--ink-light)",
-                    padding: "0.4rem 0",
-                    borderBottom: "1px solid var(--border)",
-                  }}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div className="man-section">
+                <div className="man-h">SYNOPSIS</div>
+                <div className="man-p">
+                  <strong>om</strong> [<span className="tok-key">--mcp</span>] [
+                  <span className="tok-key">--agent-infra</span>] [
+                  <span className="tok-key">--data-engineering</span>] [
+                  <span className="tok-key">--applied-llms</span>] <em>problem</em>
+                </div>
+              </div>
 
-          <div>
-            <h2
-              className="mono"
-              style={{
-                fontSize: "0.65rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "var(--ink-muted)",
-                marginBottom: "1rem",
-                borderBottom: "1px solid var(--border)",
-                paddingBottom: "0.5rem",
-              }}
-            >
-              Links
-            </h2>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {[
-                { label: "GitHub", href: "https://github.com/omkmorendha" },
-                { label: "Twitter", href: "https://twitter.com/omkmorendha" },
-                { label: "LinkedIn", href: "https://linkedin.com/in/omkmorendha" },
-                { label: "Email", href: "mailto:omkmorendha@gmail.com" },
-              ].map((link) => (
-                <li key={link.label} style={{ padding: "0.4rem 0", borderBottom: "1px solid var(--border)" }}>
-                  <Link
-                    href={link.href}
-                    target={link.href.startsWith("http") ? "_blank" : undefined}
-                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="hover-underline"
-                    style={{
-                      fontSize: "0.9rem",
-                      color: "var(--red)",
-                      textDecoration: "none",
-                    }}
+              <div className="man-section">
+                <div className="man-h">DESCRIPTION</div>
+                <div className="man-p">
+                  AI Innovation Specialist at Trilogy (ESW Capital), working
+                  remotely from India. Builds the infrastructure that makes LLM
+                  agents useful in production — MCP servers, RBAC, dimensional
+                  data models, agent orchestration, and the boring-but-critical
+                  reliability work around all of it.
+                </div>
+                <div className="man-p">
+                  Shipped a company-wide MCP server (OAuth2 + role-based access)
+                  that connects AI agents to NetSuite, Redshift, and internal
+                  APIs for 50+ employees. Re-engineered 500+ unstructured tables
+                  into Kimball star/snowflake schemas so LLMs can query without
+                  hallucinating. Built{" "}
+                  <span className="tok-accent">Budget Bot</span>, an agent that
+                  automated quarterly financial planning across 30+ portfolio
+                  companies of a $3B+ AUM PE firm — cut manual line-item
+                  generation by 80%.
+                </div>
+                <div className="man-p">
+                  Before Trilogy: led an algorithmic trading platform at Cognyx
+                  AI — Django/Postgres/Redis/WebSockets, copy-trading across
+                  100+ concurrent users, backtesting on 5+ years of market
+                  data, 12 containerized microservices on AWS with 99.5%
+                  uptime.
+                </div>
+              </div>
+
+              <div className="man-section">
+                <div className="man-h">EDUCATION</div>
+                <div className="man-p">
+                  B.Tech, Computer Science —{" "}
+                  <span className="tok-accent">IIIT Dharwad</span> (2020–2024) ·
+                  CGPA 8.25
+                </div>
+              </div>
+
+              <div className="man-section">
+                <div className="man-h">CURRENTLY</div>
+                <ul className="man-list">
+                  <li>
+                    <span className="tok-meta">[*]</span> Scaling MCP across
+                    more internal data sources at Trilogy
+                  </li>
+                  <li>
+                    <span className="tok-meta">[*]</span> Exploring
+                    agent-assisted dev workflows (
+                    <span className="tok-accent">Claude Code</span>, Codex) for
+                    single-engineer leverage
+                  </li>
+                  <li>
+                    <span className="tok-meta">[*]</span> Writing notes on what
+                    actually makes LLM agents reliable
+                  </li>
+                </ul>
+              </div>
+
+              <div className="man-section">
+                <div className="man-h">SEE ALSO</div>
+                <div className="man-p">
+                  <a
+                    href="https://github.com/omkmorendha"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-inline"
                   >
-                    {link.label} →
-                  </Link>
-                </li>
-              ))}
-            </ul>
+                    github(7)
+                  </a>
+                  ,{" "}
+                  <a
+                    href="https://twitter.com/omkmorendha"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="link-inline"
+                  >
+                    twitter(7)
+                  </a>
+                  ,{" "}
+                  <a
+                    href="mailto:omkmorendha@gmail.com"
+                    className="link-inline"
+                  >
+                    email(1)
+                  </a>
+                </div>
+              </div>
+
+              <div className="man-foot">
+                <span>morendha 1.0</span>
+                <span className="man-foot-spacer" />
+                <span>MORENDHA(1)</span>
+              </div>
+            </div>
           </div>
-        </aside>
+        </div>
       </div>
     </div>
   );
