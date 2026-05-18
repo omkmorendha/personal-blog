@@ -141,10 +141,12 @@ body.scanlines main {
   padding: 28px 28px 80px;
   display: flex;
   justify-content: center;
+  align-items: stretch;
 }
 .term-window {
   width: 100%;
   max-width: 1100px;
+  min-height: calc(100vh - 108px);
   background: var(--bg-window);
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -153,6 +155,16 @@ body.scanlines main {
     0 30px 80px -20px rgba(0, 0, 0, 0.65),
     0 8px 24px -8px rgba(0, 0, 0, 0.5);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.term-window > .term-body {
+  flex: 1 0 auto;
+}
+.term-window > .term-titlebar,
+.term-window > .nav-strip,
+.term-window > .status-line {
+  flex: 0 0 auto;
 }
 
 /* mac titlebar */
@@ -1009,6 +1021,7 @@ body.scanlines main {
   }
   .term-window {
     border-radius: 8px;
+    min-height: calc(100vh - 48px);
   }
   .term-titlebar {
     padding: 8px 10px;
