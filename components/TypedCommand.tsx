@@ -24,17 +24,27 @@ export default function TypedCommand({
   const [doneTyping, setDoneTyping] = useState<boolean>(skip);
   const [showOutput, setShowOutput] = useState<boolean>(skip);
   const onDoneRef = useRef<(() => void) | undefined>(onDone);
+  const completedKeyRef = useRef<string | null>(null);
   onDoneRef.current = onDone;
 
   useEffect(() => {
+    let cancelled = false;
+    let typingTimer: ReturnType<typeof setTimeout> | undefined;
+    let outputTimer: ReturnType<typeof setTimeout> | undefined;
+    const completionKey = `${command}:${skip ? 'skip' : 'type'}`;
+    const finish = () => {
+      if (completedKeyRef.current === completionKey) return;
+      completedKeyRef.current = completionKey;
+      onDoneRef.current?.();
+    };
+
     if (skip) {
       setTyped(command);
       setDoneTyping(true);
       setShowOutput(true);
-      onDoneRef.current?.();
+      finish();
       return;
     }
-    let cancelled = false;
     let i = 0;
     setTyped('');
     setDoneTyping(false);
@@ -45,20 +55,21 @@ export default function TypedCommand({
       setTyped(command.slice(0, i));
       if (i >= command.length) {
         setDoneTyping(true);
-        const t = setTimeout(() => {
+        outputTimer = setTimeout(() => {
           if (cancelled) return;
           setShowOutput(true);
-          onDoneRef.current?.();
+          finish();
         }, 260);
-        return () => clearTimeout(t);
+        return;
       }
       const jitter = speed * (0.7 + Math.random() * 0.6);
-      setTimeout(step, jitter);
+      typingTimer = setTimeout(step, jitter);
     }
-    const start = setTimeout(step, speed);
+    typingTimer = setTimeout(step, speed);
     return () => {
       cancelled = true;
-      clearTimeout(start);
+      if (typingTimer) clearTimeout(typingTimer);
+      if (outputTimer) clearTimeout(outputTimer);
     };
   }, [command, speed, skip]);
 

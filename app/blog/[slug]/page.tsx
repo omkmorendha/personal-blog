@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getAllPosts, getPostMeta, loadPostComponent } from '@/lib/posts';
+import { getAllPosts, getPostMeta } from '@/lib/posts';
 import Prompt from '@/components/Prompt';
 
 interface Props {
@@ -30,8 +30,7 @@ export default async function PostPage({ params }: Props) {
   const post = getPostMeta(slug);
   if (!post) notFound();
 
-  const PostBody = await loadPostComponent(slug);
-  if (!PostBody) notFound();
+  const { default: PostBody } = await import(`@/content/posts/${slug}.mdx`).catch(() => notFound());
 
   return (
     <div className="route">

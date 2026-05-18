@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
 };
 
-const withMDX = createMDX({});
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: ['remark-frontmatter'],
+  },
+});
 
 export default withMDX(nextConfig);

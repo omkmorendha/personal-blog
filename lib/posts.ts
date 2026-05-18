@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import type { ComponentType } from 'react';
 
 const postsDir = path.join(process.cwd(), 'content/posts');
 
@@ -12,40 +11,51 @@ export interface PostMeta {
   description: string;
   tags?: string[];
   readingTime?: string;
+  timestamp: number;
 }
 
 function estimateReadingTime(content: string): string {
-  const words = content.trim().split(/\s+/).length;
-  const mins = Math.ceil(words / 200);
+  const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+  const mins = Math.max(1, Math.ceil(words / 200));
   return `${mins} min read`;
+}
+
+function parseTimestamp(date: unknown): number {
+  if (!date) return 0;
+  const parsed = date instanceof Date ? date.getTime() : new Date(String(date)).getTime();
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+function formatDate(timestamp: number, style: 'short' | 'long'): string {
+  if (!timestamp) return '';
+  return new Intl.DateTimeFormat('en-US', {
+    timeZone: 'UTC',
+    year: 'numeric',
+    month: style === 'short' ? 'short' : 'long',
+    day: 'numeric',
+  }).format(new Date(timestamp));
 }
 
 function readMeta(file: string): PostMeta {
   const slug = file.replace(/\.(mdx|md)$/, '');
   const raw = fs.readFileSync(path.join(postsDir, file), 'utf-8');
   const { data, content } = matter(raw);
+  const timestamp = parseTimestamp(data.date);
   return {
     slug,
     title: data.title ?? slug,
-    date: data.date
-      ? new Date(data.date).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-        })
-      : '',
+    date: formatDate(timestamp, 'short'),
     description: data.description ?? '',
     tags: data.tags ?? [],
     readingTime: estimateReadingTime(content),
+    timestamp,
   };
 }
 
 export function getAllPosts(): PostMeta[] {
   if (!fs.existsSync(postsDir)) return [];
   const files = fs.readdirSync(postsDir).filter((f) => f.endsWith('.mdx') || f.endsWith('.md'));
-  return files
-    .map(readMeta)
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return files.map(readMeta).sort((a, b) => b.timestamp - a.timestamp);
 }
 
 export function getRecentPosts(n: number): PostMeta[] {
@@ -57,26 +67,5 @@ export function getPostMeta(slug: string): PostMeta | null {
   const file = candidates.find((f) => fs.existsSync(path.join(postsDir, f)));
   if (!file) return null;
   const meta = readMeta(file);
-  return { ...meta, date: formatLong(meta.date) };
-}
-
-function formatLong(dateStr: string): string {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  return isNaN(d.getTime())
-    ? dateStr
-    : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
-interface MDXModule {
-  default: ComponentType;
-}
-
-export async function loadPostComponent(slug: string): Promise<ComponentType | null> {
-  try {
-    const mod: MDXModule = await import(`@/content/posts/${slug}.mdx`);
-    return mod.default;
-  } catch {
-    return null;
-  }
+  return { ...meta, date: formatDate(meta.timestamp, 'long') };
 }
