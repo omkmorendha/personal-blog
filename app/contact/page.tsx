@@ -83,11 +83,13 @@ export default function ContactPage() {
                 {`
   ],
   "open_to": [`}
-                <span className="tok-string">&quot;collab&quot;</span>
-                {`, `}
                 <span className="tok-string">&quot;founding&quot;</span>
                 {`, `}
-                <span className="tok-string">&quot;freelance&quot;</span>
+                <span className="tok-string">&quot;staff&quot;</span>
+                {`, `}
+                <span className="tok-string">&quot;senior&quot;</span>
+                {`, `}
+                <span className="tok-string">&quot;forward-deployed&quot;</span>
                 {`]
 }`}
               </pre>

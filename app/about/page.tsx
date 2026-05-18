@@ -44,24 +44,22 @@ export default function AboutPage() {
               <div className="man-section">
                 <div className="man-h">DESCRIPTION</div>
                 <div className="man-p">
-                  AI Innovation Specialist at Trilogy (ESW Capital), working remotely from India.
-                  Builds the infrastructure that makes LLM agents useful in production, MCP
-                  servers, RBAC, dimensional data models, agent orchestration, and the
-                  boring-but-critical reliability work around all of it.
+                  Available for new roles: founding / staff / senior / forward-deployed.
+                  Previously AI Innovation Specialist at{' '}
+                  <span className="tok-accent">Trilogy (ESW Capital)</span>.
                 </div>
                 <div className="man-p">
-                  Shipped a company-wide MCP server (OAuth2 + role-based access) that connects AI
-                  agents to NetSuite, Redshift, and internal APIs for 50+ employees. Re-engineered
-                  500+ unstructured tables into Kimball star/snowflake schemas so LLMs can query
-                  without hallucinating. Built <span className="tok-accent">Budget Bot</span>, an
-                  agent that automated quarterly financial planning across 30+ portfolio companies
-                  of a $3B+ AUM PE firm, cut manual line-item generation by 80%.
+                  Builds the infrastructure that makes LLM agents useful in production: MCP
+                  servers, RBAC, dimensional data models, and agent orchestration. At Trilogy,
+                  shipped a company-wide MCP server that let employees point agents at internal
+                  data; re-engineered a bloated warehouse into Kimball-style dimensional models so
+                  LLMs can query it while minimizing hallucination; and built{' '}
+                  <span className="tok-accent">Budget Bot</span>, an agent that automated quarterly
+                  financial planning for a $3B+ AUM PE firm.
                 </div>
                 <div className="man-p">
-                  Before Trilogy: led an algorithmic trading platform at Cognyx AI,
-                  Django/Postgres/Redis/WebSockets, copy-trading across 100+ concurrent users,
-                  backtesting on 5+ years of market data, 12 containerized microservices on AWS with
-                  99.5% uptime.
+                  Before Trilogy: led an algorithmic copy-trading platform at Cognyx AI across
+                  hundreds of concurrent users.
                 </div>
               </div>
 
@@ -77,8 +75,8 @@ export default function AboutPage() {
                 <div className="man-h">CURRENTLY</div>
                 <ul className="man-list">
                   <li>
-                    <span className="tok-meta">[*]</span> Scaling MCP across more internal data
-                    sources at Trilogy
+                    <span className="tok-meta">[*]</span> Talking to teams hiring for agent infra,
+                    applied AI, or forward-deployed work
                   </li>
                   <li>
                     <span className="tok-meta">[*]</span> Exploring agent-assisted dev workflows (
