@@ -1,1 +1,1 @@
-/// <reference types="@cloudflare/next-on-pages" />
+/// <reference types="@opennextjs/cloudflare" />
