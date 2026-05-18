@@ -6,8 +6,8 @@ import StatusLine from '@/components/StatusLine';
 
 export const metadata: Metadata = {
   title: {
-    default: 'om@morendha — zsh',
-    template: '%s — om@morendha',
+    default: 'om@morendha',
+    template: '%s om@morendha',
   },
   description:
     'Om Morendha — AI engineer building agent infrastructure, MCP servers, and the data layer underneath.',
