@@ -67,7 +67,7 @@ export default function AboutPage() {
                 <div className="man-h">EDUCATION</div>
                 <div className="man-p">
                   B.Tech, Computer Science, <span className="tok-accent">IIIT Dharwad</span>{' '}
-                  (2020–2024) · CGPA 8.25
+                  (2020–2024)
                 </div>
               </div>
 
