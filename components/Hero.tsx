@@ -154,10 +154,6 @@ export default function Hero({ posts }: { posts: PostMeta[] }) {
         <span className="cursor hero-cursor blink">█</span>
       </div>
 
-      <div className="hero-tagline">
-        <span className="tok-comment">// returns the currently logged-in user — interactively</span>
-      </div>
-
       <div className="hero-body">
         <TypedCommand command="whoami" prompt="~" speed={28} skip onDone={next}>
           <WhoamiOutput />

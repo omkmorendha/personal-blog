@@ -6,7 +6,7 @@ import StatusLine from '@/components/StatusLine';
 
 export const metadata: Metadata = {
   title: {
-    default: 'om@morendha — zsh',
+    default: 'om@morendha',
     template: '%s — om@morendha',
   },
   description:
