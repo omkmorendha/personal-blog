@@ -22,6 +22,26 @@ interface Project {
 
 const PROJECTS: Project[] = [
   {
+    name: 'mcp-authkit',
+    description:
+      'Framework-agnostic auth toolkit for Model Context Protocol servers: OAuth 2.1 token validation, Personal Access Tokens, and per-tool authorization across 9 published npm packages (Express/Hono adapters, Postgres/SQLite/Redis stores, CLI).',
+    tags: ['mcp', 'oauth2', 'typescript', 'open-source'],
+    href: 'https://github.com/omkmorendha/mcp-authkit',
+    lang: 'typescript',
+    status: 'active',
+    commit: 'd4b7e93',
+  },
+  {
+    name: 'postgres-mcp',
+    description:
+      'Secure remote Postgres MCP server built on mcp-authkit: Hono + Streamable HTTP, OAuth-protected tools, durable PAT storage, and a SQL parser/policy layer enforcing per-statement SELECT/UPDATE/DELETE grants.',
+    tags: ['mcp', 'postgres', 'hono', 'oauth2'],
+    href: 'https://github.com/omkmorendha/postgres-mcp',
+    lang: 'typescript',
+    status: 'active',
+    commit: '7c5a01b',
+  },
+  {
     name: 'trilogy-mcp',
     description:
       'Company-wide MCP server (OAuth2 + RBAC) connecting AI agents to NetSuite, Redshift, and internal APIs for 50+ employees.',

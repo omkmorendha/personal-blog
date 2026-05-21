@@ -1,0 +1,51 @@
+---
+title: 'Auth for MCP servers, without the boilerplate'
+date: '2026-05-21'
+description: 'Why I built mcp-authkit, a framework-agnostic toolkit for OAuth 2.1 and Personal Access Tokens on Model Context Protocol servers.'
+tags: ['mcp', 'oauth', 'typescript', 'open-source']
+---
+
+Every MCP server I've written ends up reinventing the same thing: a way to figure out _who_ is calling a tool and _whether they're allowed to_. The protocol gives you a transport and a tool surface; it doesn't give you auth. So you wire token validation into every handler, copy-paste a scope check, and quietly hope you got the OAuth bits right.
+
+`mcp-authkit` is my attempt to stop doing that.
+
+## What it is
+
+It's a framework-agnostic auth toolkit for Model Context Protocol servers. It lets server authors validate spec-compliant OAuth 2.1 tokens, issue Personal Access Tokens for scripts and CI, and enforce per-tool authorization without threading auth logic through every handler.
+
+The core is deliberately small and unopinionated. Everything else, the web framework, the token store, the OAuth flow you happen to need, plugs in around it. As of v0.2 that's nine packages releasing together:
+
+- **Core**: token validation, PATs, scope matching, framework-agnostic handlers, bypass mode, and audit callbacks.
+- **Stores**: an in-process `memoryTokenStore`, durable Postgres and SQLite stores, and an optional Redis cache decorator.
+- **Adapters**: Express and Hono.
+- **CLI + config**: `mcp-authkit init`, `mint-pat`, `verify-config`, `jwks-fetch`, `gen-secret`, and a `mcp-authkit.config.ts` loader.
+
+## The parts I cared about getting right
+
+**OAuth flows that follow the RFCs, not vibes.** v0.2 implements Dynamic Client Registration (RFC 7591), JWT Bearer Assertion (RFC 7523), Client Credentials (RFC 6749 §4.4), and Token Exchange (RFC 8693). Auth is one of those domains where "close enough" is a security bug, so each flow is pinned to its spec section and tested against it.
+
+**Multi-tenancy as a first-class shape.** Instead of a single hardcoded issuer, you can pass an `authorizationServer(req)` function that resolves the issuer per request, with a per-issuer JWKS cache behind it. The same server can sit in front of many tenants without you running many servers.
+
+**On-behalf-of for upstream calls.** An MCP tool often needs to call _another_ authenticated service. `authkit.upstreamFor(audience)` mints the right downstream token so you're not stuffing long-lived secrets into tool code.
+
+**A stdio transport you can actually deploy.** Local MCP usually means stdio with no auth at all. The production stdio transport adds a signed handshake (HMAC, a monotonic counter, and a refusal to fall back to bypass mode) so the convenient transport isn't the insecure one.
+
+## Why a toolkit instead of a server
+
+I didn't want to ship "the auth server you must adopt." Most teams already have an identity provider; what they're missing is the glue that makes an MCP server _consume_ it correctly. So `mcp-authkit` stays a library you call from your handlers, with stores and adapters you opt into. Bypass mode exists for local development, and it's loud about being on: you have to ask for it, and the production stdio transport refuses it outright.
+
+## What it looks like in practice
+
+To make sure the toolkit held up outside of its own examples, I built a real server on it: [`postgres-mcp`](https://github.com/omkmorendha/postgres-mcp), a secure remote Postgres MCP server. It's Hono + Streamable HTTP, with OAuth-protected tools (`query`, `list_schemas`, `list_tables`, `display_access`), durable PAT storage through the Postgres token store, and an admin schema for users, grants, and audit events.
+
+The interesting part is what `mcp-authkit` _didn't_ make me write. Bearer-token validation, the protected-resource metadata routes, the PAT mint/revoke endpoints, Dynamic Client Registration, all of that came from the toolkit. What was left for me to build was the part that's actually specific to a Postgres server: a SQL parser and a policy layer that enforces per-statement `SELECT`/`UPDATE`/`DELETE` grants against the caller's scopes. That split is exactly the one I was after when I designed the library.
+
+## Try it
+
+The [quickstart](https://github.com/omkmorendha/mcp-authkit) takes you from `pnpm add mcp-authkit` to a running OAuth-protected MCP server, minting a PAT with `curl`, and calling a tool, no prior MCP experience required. There's a production deployment guide and a per-store cookbook for when you outgrow the happy path.
+
+It's MIT-licensed and on npm. v0.2.1 is the current release; the [roadmap](https://github.com/omkmorendha/mcp-authkit/blob/main/ROADMAP.md) tracks what's next.
+
+---
+
+If you're building MCP servers and have opinions about how auth _should_ feel, I'd like to hear them. Issues and email both work.
